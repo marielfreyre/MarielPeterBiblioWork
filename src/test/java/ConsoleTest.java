@@ -48,7 +48,14 @@ public class ConsoleTest {
     @Test
     public void shouldGenerateMenu() throws Exception {
         console.generateMenu();
-        verify(output).println("List Books");
+        verify(output, times(1)).println(anyString());
 
     }
+
+/*
+    @Test
+    public void shouldGenerateStringWhenUserInputs() throws Exception {
+        assertThat(console.getUserInput(),is("1"));
+
+    }*/
 }

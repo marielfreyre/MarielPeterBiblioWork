@@ -1,6 +1,8 @@
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cramsden on 8/5/15.
@@ -8,12 +10,13 @@ import java.util.List;
 public class Console {
     private Library library;
     private PrintStream printStream;
-    private List<String> menuItems = new ArrayList<>();
+    private Map<String,Command> menuItems;
 
     public Console(Library library, PrintStream printStream) {
         this.library = library;
         this.printStream = printStream;
-        menuItems.add("List Books");
+        menuItems = new HashMap<>();
+        menuItems.put("1", new ListBooksCommand(this));
     }
 
     public void openLibrary(){
@@ -34,8 +37,12 @@ public class Console {
 
 
     public void generateMenu() {
-        for (String item : menuItems) {
-            printStream.println(item);
+        for (Map.Entry<String, Command> menuItem : menuItems.entrySet()) {
+            printStream.println(menuItem);
         }
+    }
+
+    public String getUserInput() {
+        return "";
     }
 }
