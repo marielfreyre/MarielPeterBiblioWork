@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,39 +12,54 @@ import java.util.Map;
 public class Console {
     private Library library;
     private PrintStream printStream;
-    private Map<String,Command> menuItems;
+    private BufferedReader reader;
+    private Map<String, Command> menuItems;
+    private boolean isSelectionValid = false;
 
-    public Console(Library library, PrintStream printStream) {
+    public Console(Library library, PrintStream printStream, BufferedReader reader, Map<String, Command> menuItems) {
         this.library = library;
         this.printStream = printStream;
-        menuItems = new HashMap<>();
-        menuItems.put("1", new ListBooksCommand(this));
+        this.reader = reader;
+        this.menuItems = menuItems;
     }
 
-    public void openLibrary(){
+    public void openLibrary() {
         printStream.println(library.open());
     }
 
 
-    public void listAllBooks() {
-        for (Book book : library.listAllBooks()) {
-            printStream.println(book);
-        }
-    }
-
     public void runLibrary() {
         openLibrary();
-        listAllBooks();
+        generateMenu();
+        getUserInput();
     }
 
 
     public void generateMenu() {
         for (Map.Entry<String, Command> menuItem : menuItems.entrySet()) {
-            printStream.println(menuItem);
+            printStream.println(String.format("(%s) %s", menuItem.getKey(), menuItem.getValue().description()));
         }
     }
 
-    public String getUserInput() {
-        return "";
+    public void getUserInput() {
+        while (!isSelectionValid) {
+            printStream.println("Please Select a Number from the Menu:");
+            String userInput = "";
+
+            try {
+                userInput = reader.readLine();
+            } catch (IOException e) {
+                printStream.println("Could not read user's input.");
+            }
+
+            Command command = menuItems.get(userInput);
+            if (command == null) {
+                printStream.println("That is an invalid selection!");
+            } else {
+                command.execute();
+                isSelectionValid = true;
+            }
+        }
+
     }
 }

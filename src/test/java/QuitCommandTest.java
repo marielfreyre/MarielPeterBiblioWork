@@ -1,4 +1,3 @@
-import junit.framework.TestCase;
 import org.junit.Test;
 
 import java.io.PrintStream;
@@ -7,12 +6,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by cramsden on 8/5/15.
  */
-public class ListBooksCommandTest {
+public class QuitCommandTest {
     private ListBooksCommand booksCommand;
 
     @Test
@@ -32,5 +30,4 @@ public class ListBooksCommandTest {
 
 
     }
-
 }
