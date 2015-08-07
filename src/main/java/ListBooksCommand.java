@@ -16,10 +16,7 @@ public class ListBooksCommand implements Command{
 
     @Override
     public void execute() {
-        for (Book book : library.listAllBooks()) {
-
-            printStream.println(book);
-        }
+        library.listAllBooks();
     }
 
 

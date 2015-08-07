@@ -23,43 +23,59 @@ public class Console {
         this.menuItems = menuItems;
     }
 
-    public void openLibrary() {
+    private void openLibrary() {
         printStream.println(library.open());
     }
 
 
     public void runLibrary() {
         openLibrary();
-        generateMenu();
-        getUserInput();
-    }
+        //generateMenu();
+        String userInput;
 
-
-    public void generateMenu() {
-        for (Map.Entry<String, Command> menuItem : menuItems.entrySet()) {
-            printStream.println(String.format("(%s) %s", menuItem.getKey(), menuItem.getValue().description()));
+        while (!isSelectionValid) {
+            userInput =  getUserInput();
+            executeUserInput(userInput);
         }
     }
 
-    public void getUserInput() {
-        while (!isSelectionValid) {
-            printStream.println("Please Select a Number from the Menu:");
-            String userInput = "";
 
-            try {
-                userInput = reader.readLine();
-            } catch (IOException e) {
-                printStream.println("Could not read user's input.");
-            }
+
+
+//    private void generateMenu() {
+//        for (Map.Entry<String, Command> menuItem : menuItems.entrySet()) {
+//            printStream.println(String.format("(%s) %s", menuItem.getKey(), menuItem.getValue().description()));
+//        }
+//    }
+
+    public String getUserInput() {
+
+        printStream.println("Please Select a Number from the Menu:");
+        String userInput = "";
+
+        try {
+            userInput = reader.readLine();
+        } catch (IOException e) {
+            printStream.println("Could not read user's input.");
+        }
+
+        return userInput;
+
+
+    }
+
+    private void executeUserInput(String userInput) {
+
 
             Command command = menuItems.get(userInput);
             if (command == null) {
                 printStream.println("That is an invalid selection!");
+                isSelectionValid = false;
             } else {
                 command.execute();
                 isSelectionValid = true;
             }
-        }
+
 
     }
 }

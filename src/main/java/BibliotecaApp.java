@@ -11,7 +11,7 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         List<Book> listOfBooks = new ArrayList<>();
         addBooksToList(listOfBooks);
-        Library biblioteca = new Library(listOfBooks);
+        Library biblioteca = new Library(listOfBooks, System.out);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         HashMap <String,Command> menuItems = new HashMap<>();
         menuItems.put("1", new ListBooksCommand(biblioteca,System.out));

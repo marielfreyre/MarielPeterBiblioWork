@@ -10,23 +10,34 @@ import java.util.List;
  */
 public class Library {
 
+    private PrintStream printStream;
     private List<Book> books;
 
-    public Library() {
-        this(new ArrayList<Book>());
+//    //public Library() {
+//        this(new ArrayList<Book>());
+//    }
+
+    public Library(List<Book> books, PrintStream printStream) {
+        this.books = books;
+        this.printStream = printStream;
+
     }
 
-    public Library(List<Book> listOfBooks) {
-        this.books = listOfBooks;
-
-    }
 
     public String open() {
         return "Welcome to the Library! Biblioteca is available!";
     }
 
 
-    public List<Book> listAllBooks() {
-        return books;
+    public void listAllBooks() {
+        for (Book book : books) {
+            printStream.println(book.toString());
+        }
+
+
     }
+
+//    public void generateMenu() {
+//
+//    }
 }

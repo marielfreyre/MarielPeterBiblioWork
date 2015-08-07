@@ -1,6 +1,16 @@
 /**
  * Created by cramsden on 8/5/15.
  */
-public class QuitCommand {
+public class QuitCommand implements Command {
 
+
+    @Override
+    public void execute() {
+
+    }
+
+    @Override
+    public String description() {
+        return null;
+    }
 }
