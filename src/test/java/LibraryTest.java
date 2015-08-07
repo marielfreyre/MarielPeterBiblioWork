@@ -47,13 +47,14 @@ public class LibraryTest {
         library.listAllBooks();
         verify(printStream, times(2)).println(anyString());
     }
-//
-//    @Test
-//    public void shouldGenerateMenu() throws Exception {
-//        console = mock(Console.class);
-//
-//        console.runLibrary();
-//
-//        verify(library).generateMenu();
-//    }
+
+    @Test
+    public void shouldNotListBookWhenBookIsCheckedOut() {
+        Book bookNotAvailable = mock(Book.class);
+        when(bookNotAvailable.canBeCheckedOut()).thenReturn(false);
+        when(bookNotAvailable.toString()).thenReturn("Book");
+
+        verify(printStream, never()).println("Book");
+
+    }
 }

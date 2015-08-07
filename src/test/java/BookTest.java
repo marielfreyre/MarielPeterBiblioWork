@@ -5,12 +5,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.PrintStream;
-import java.util.ArrayList;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 
 public class BookTest {
@@ -34,5 +30,15 @@ public class BookTest {
         assertThat(bookString, is("Harry Potter and the Sorcerer's Stone | JK Rowling | 1997"));
     }
 
+    @Test
+    public void shouldBeAvailableWhenBookNoCheckedOut() throws Exception {
+        assertTrue(book.canBeCheckedOut());
+    }
 
+    @Test
+    public void shouldNotBeAvailableWhenBookCheckedOut() throws Exception {
+        book.checkOut();
+        assertFalse(book.canBeCheckedOut());
+
+    }
 }

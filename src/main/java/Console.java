@@ -36,7 +36,12 @@ public class Console {
         while (!isConsoleClose) {
             menu.print();
             userInput = getUserInput();
-            menu.executeUserInput(userInput);
+            try {
+                executeUserInput(userInput);
+            } catch (QuitCommandException e) {
+                isConsoleClose = true;
+                break;
+            }
         }
     }
 
@@ -45,6 +50,19 @@ public class Console {
         isConsoleClose = true;
     }
 
+    void executeUserInput(String userInput) throws QuitCommandException {
+
+        Command command = menuItems.get(userInput);
+        if (command == null) {
+            printStream.println("That is an invalid selection!");
+//            isConsoleClose = false;
+        } else {
+            command.execute();
+//            isConsoleClose = true;
+        }
+
+
+    }
 
     public String getUserInput() {
 

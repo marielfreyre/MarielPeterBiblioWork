@@ -23,17 +23,5 @@ public class Menu {
 
     }
 
-    void executeUserInput(String userInput) {
 
-        Command command = menuItems.get(userInput);
-        if (command == null) {
-            printStream.println("That is an invalid selection!");
-//            isConsoleClose = false;
-        } else {
-            command.execute();
-//            isConsoleClose = true;
-        }
-
-
-    }
 }

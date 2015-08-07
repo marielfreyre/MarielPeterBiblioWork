@@ -36,7 +36,7 @@ public class ConsoleTest {
         book = mock(Book.class);
         books.add(book);
 
-        listBooksCommand = new ListBooksCommand(library, output);
+        listBooksCommand = mock(ListBooksCommand.class);
         menuItems = new HashMap<>();
         menuItems.put("1", listBooksCommand);
 
@@ -64,13 +64,12 @@ public class ConsoleTest {
     public void shouldPrintMenuWhenLibraryOpens() throws IOException {
         menu = mock(Menu.class);
         console = new Console(library, output, reader, menuItems, menu);
-//        when(reader.readLine()).thenReturn("q");
-        when(reader.readLine()).then();
+        when(reader.readLine()).thenReturn("q");
 
         console.runLibrary();
-//        for (Map.Entry<String, Command> commandEntry : menuItems.entrySet()) {
-//            verify(output).printf("(%s) %s", commandEntry.getKey(), commandEntry.getValue());
-//        }
+    /*    for (Map.Entry<String, Command> commandEntry : menuItems.entrySet()) {
+            verify(commandEntry.getValue()).description();
+        }*/
 
         verify(menu).print();
     }

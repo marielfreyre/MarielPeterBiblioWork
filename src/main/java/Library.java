@@ -37,6 +37,10 @@ public class Library {
 
     }
 
+    public void checkOutBook() {
+
+    }
+
 //    public void generateMenu() {
 //
 //    }

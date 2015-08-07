@@ -10,8 +10,8 @@ public class QuitCommand implements Command {
     }
 
     @Override
-    public void execute() {
-        console.quit();
+    public void execute() throws QuitCommandException {
+        throw new QuitCommandException();
     }
 
     @Override

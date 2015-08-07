@@ -3,6 +3,8 @@ import org.junit.Test;
 
 import java.io.PrintStream;
 
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.TestCase.assertNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
@@ -47,8 +49,16 @@ public class QuitCommandTest {
 
     @Test
     public void shouldCallConsoleQuitWhenCommandExecute() {
-        quitCommand.execute();
-        verify(console).quit();
+        QuitCommandException quitCommandException = null;
+        try {
+            quitCommand.execute();
+        } catch (QuitCommandException e) {
+            quitCommandException = e;
+        }
+
+        assertNotNull(quitCommandException);
+
+//        verify(console).quit();
 
     }
 }
