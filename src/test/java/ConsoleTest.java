@@ -23,27 +23,37 @@ public class ConsoleTest {
     Book book;
     BufferedReader reader;
     private ListBooksCommand listBooksCommand;
-    private Map<String,Command> menuItems;
+    private Map<String, Command> menuItems;
+    private QuitCommand quitCommand;
+    private Menu menu;
 
     @Before
     public void setUp() throws Exception {
         library = mock(Library.class);
         reader = mock(BufferedReader.class);
-        when(library.open()).thenReturn("Welcome to the Library! Biblioteca is available!");
+
         List<Book> books = new ArrayList<>();
         book = mock(Book.class);
         books.add(book);
-        //when(library.listAllBooks()).thenReturn(books);
-        listBooksCommand = mock(ListBooksCommand.class);
+
+        listBooksCommand = new ListBooksCommand(library, output);
         menuItems = new HashMap<>();
-        menuItems.put("1",listBooksCommand);
+        menuItems.put("1", listBooksCommand);
+
         output = mock(PrintStream.class);
-        console = new Console(library,output, reader,menuItems);
+
+
+        menu = new Menu(output, menuItems);
+        console = new Console(library, output, reader, menuItems, menu);
+        quitCommand = new QuitCommand(console);
+        menuItems.put("q", quitCommand);
 
     }
 
     @Test
-    public void shouldPrintWelcomeWhenLibraryOpens() {
+    public void shouldPrintWelcomeWhenLibraryOpens() throws IOException {
+        when(library.open()).thenReturn("Welcome to the Library! Biblioteca is available!");
+        when(reader.readLine()).thenReturn("q");
 
         console.runLibrary();
         verify(output).println(library.open());
@@ -51,28 +61,18 @@ public class ConsoleTest {
     }
 
     @Test
-    public void shouldPrintMenuWhenLibraryRuns() throws IOException {
+    public void shouldPrintMenuWhenLibraryOpens() throws IOException {
+        menu = mock(Menu.class);
+        console = new Console(library, output, reader, menuItems, menu);
+//        when(reader.readLine()).thenReturn("q");
+        when(reader.readLine()).then();
+
         console.runLibrary();
-        when(reader.readLine()).thenReturn("1");
+//        for (Map.Entry<String, Command> commandEntry : menuItems.entrySet()) {
+//            verify(output).printf("(%s) %s", commandEntry.getKey(), commandEntry.getValue());
+//        }
 
-        verify(listBooksCommand).description();
-
+        verify(menu).print();
     }
-
-
-//    @Test
-//    public void shouldListBooksWhenUserChoosesListBooks() throws Exception {
-//        when(reader.readLine()).thenReturn("1").thenReturn("nanana");
-//        console.runLibrary();
-//        verify(listBooksCommand).execute();
-//    }
-
-//    @Test
-//    public void shouldPrintInvalidMessageWhenUserInputIsIncorrect() throws Exception {
-//        when(reader.readLine()).thenReturn("!!!");
-//        console.runLibrary();
-//        verify(output).println(contains("That is an invalid selection!"));
-//
-//    }
 
 }

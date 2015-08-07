@@ -1,9 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,16 +11,15 @@ public class Console {
     private PrintStream printStream;
     private BufferedReader reader;
     private Map<String, Command> menuItems;
-    private boolean isSelectionValid = false;
+    private boolean isConsoleClose = false;
     private Menu menu;
 
-    public Console(Library library, PrintStream printStream, BufferedReader reader, Map<String, Command> menuItems) {
+    public Console(Library library, PrintStream printStream, BufferedReader reader, Map<String, Command> menuItems, Menu menu) {
         this.library = library;
         this.printStream = printStream;
         this.reader = reader;
         this.menuItems = menuItems;
-
-        menu = new Menu(printStream, menuItems);
+        this.menu = menu;
     }
 
     private void openLibrary() {
@@ -34,17 +30,20 @@ public class Console {
     public void runLibrary() {
         openLibrary();
         //generateMenu();
-        menu.print();
 
         String userInput;
 
-//        while (!isSelectionValid) {
-            userInput =  getUserInput();
-            executeUserInput(userInput);
-//        }
+        while (!isConsoleClose) {
+            menu.print();
+            userInput = getUserInput();
+            menu.executeUserInput(userInput);
+        }
     }
 
 
+    public void quit() {
+        isConsoleClose = true;
+    }
 
 
     public String getUserInput() {
@@ -63,18 +62,4 @@ public class Console {
 
     }
 
-    private void executeUserInput(String userInput) {
-
-
-        Command command = menuItems.get(userInput);
-        if (command == null) {
-            printStream.println("That is an invalid selection!");
-            isSelectionValid = false;
-        } else {
-            command.execute();
-            isSelectionValid = true;
-        }
-
-
-    }
 }
