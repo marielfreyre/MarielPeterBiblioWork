@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,14 +50,14 @@ public class ConsoleTest {
 
     }
 
+    @Test
+    public void shouldPrintMenuWhenLibraryRuns() throws IOException {
+        console.runLibrary();
+        when(reader.readLine()).thenReturn("1");
 
+        verify(listBooksCommand).description();
 
-//    @Test
-//    public void shouldGenerateMenu() throws Exception {
-//        console.runLibrary();
-//        verify(output, times(1)).println(anyString());
-//
-//    }
+    }
 
 
 //    @Test
@@ -65,7 +66,7 @@ public class ConsoleTest {
 //        console.runLibrary();
 //        verify(listBooksCommand).execute();
 //    }
-//
+
 //    @Test
 //    public void shouldPrintInvalidMessageWhenUserInputIsIncorrect() throws Exception {
 //        when(reader.readLine()).thenReturn("!!!");
