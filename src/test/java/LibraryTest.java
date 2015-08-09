@@ -44,8 +44,12 @@ public class LibraryTest {
 
     @Test
     public void shouldListAllBooksWhenLibraryCreatedWithBooks() {
-        listOfBooks.add(mock(Book.class));
-        listOfBooks.add(mock(Book.class));
+        Book book1 = mock(Book.class);
+        listOfBooks.add(book1);
+        Book book2 = mock(Book.class);
+        listOfBooks.add(book2);
+        when(book1.canBeCheckedOut()).thenReturn(true);
+        when(book2.canBeCheckedOut()).thenReturn(true);
 
         library.listAllBooks();
         verify(printStream, times(2)).println(anyString());
@@ -102,6 +106,7 @@ public class LibraryTest {
         Book book1 = mock(Book.class);
         listOfBooks.add(book1);
         when(bufferedReader.readLine()).thenReturn("1");
+        when(book1.canBeCheckedOut()).thenReturn(true);
         library.checkOutBook();
 
         verify(book1).checkOut();
@@ -113,6 +118,7 @@ public class LibraryTest {
         Book book = mock(Book.class);
         listOfBooks.add(book);
         when(bufferedReader.readLine()).thenReturn("1");
+        when(book.canBeCheckedOut()).thenReturn(true);
 
         library.checkOutBook();
 
@@ -120,6 +126,27 @@ public class LibraryTest {
 
 
 
+
+    }
+
+    @Test
+    public void shouldCheckIfBookCanBeCheckedOutWhenUserWantsToCheckOutBook() throws Exception {
+        Book book = mock(Book.class);
+        listOfBooks.add(book);
+        when(bufferedReader.readLine()).thenReturn("1");
+        library.checkOutBook();
+        verify(book).canBeCheckedOut();
+
+    }
+
+    @Test
+    public void shouldNotCheckedOutBookWhenBookIsUnavailable() throws Exception {
+        Book book = mock(Book.class);
+        listOfBooks.add(book);
+        when(bufferedReader.readLine()).thenReturn("1");
+        when(book.canBeCheckedOut()).thenReturn(false);
+        library.checkOutBook();
+        verify(book, never()).checkOut();
 
     }
 }

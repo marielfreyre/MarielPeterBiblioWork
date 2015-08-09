@@ -55,9 +55,22 @@ public class Library {
             e.printStackTrace();
         }
 
-        int bookID = parseInt(userInput) - 1;
-        books.get(bookID).checkOut();
-        printStream.println("Thank you! Enjoy the book");
+        int bookID = 0;
+        try {
+            bookID = parseInt(userInput) - 1;
+        } catch (NumberFormatException e) {
+            printStream.println("A number was not input");
+        }
+
+        Book currentBook = null;
+        if (bookID >= books.size()) {
+            return;
+        }
+        currentBook = books.get(bookID);
+        if (currentBook.canBeCheckedOut()) {
+            currentBook.checkOut();
+            printStream.println("Thank you! Enjoy the book");
+        }
 
     }
 
