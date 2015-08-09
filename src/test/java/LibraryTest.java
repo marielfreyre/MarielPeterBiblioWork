@@ -48,8 +48,8 @@ public class LibraryTest {
         listOfBooks.add(book1);
         Book book2 = mock(Book.class);
         listOfBooks.add(book2);
-        when(book1.canBeCheckedOut()).thenReturn(true);
-        when(book2.canBeCheckedOut()).thenReturn(true);
+        when(book1.isInLibrary()).thenReturn(true);
+        when(book2.isInLibrary()).thenReturn(true);
 
         library.listAllBooks();
         verify(printStream, times(2)).println(anyString());
@@ -58,7 +58,7 @@ public class LibraryTest {
     @Test
     public void shouldNotListBookWhenBookIsCheckedOut() {
         Book bookNotAvailable = mock(Book.class);
-        when(bookNotAvailable.canBeCheckedOut()).thenReturn(false);
+        when(bookNotAvailable.isInLibrary()).thenReturn(false);
         when(bookNotAvailable.toString()).thenReturn("Book");
 
         verify(printStream, never()).println("Book");
@@ -79,7 +79,7 @@ public class LibraryTest {
     public void shouldListIDNumberOfBookWhenListBooks() throws Exception {
         Book book1 = mock(Book.class);
         listOfBooks.add(book1);
-        when(book1.canBeCheckedOut()).thenReturn(true);
+        when(book1.isInLibrary()).thenReturn(true);
 
         library.listAllBooks();
 
@@ -106,7 +106,7 @@ public class LibraryTest {
         Book book1 = mock(Book.class);
         listOfBooks.add(book1);
         when(bufferedReader.readLine()).thenReturn("1");
-        when(book1.canBeCheckedOut()).thenReturn(true);
+        when(book1.isInLibrary()).thenReturn(true);
         library.checkOutBook();
 
         verify(book1).checkOut();
@@ -118,7 +118,7 @@ public class LibraryTest {
         Book book = mock(Book.class);
         listOfBooks.add(book);
         when(bufferedReader.readLine()).thenReturn("1");
-        when(book.canBeCheckedOut()).thenReturn(true);
+        when(book.isInLibrary()).thenReturn(true);
 
         library.checkOutBook();
 
@@ -135,7 +135,7 @@ public class LibraryTest {
         listOfBooks.add(book);
         when(bufferedReader.readLine()).thenReturn("1");
         library.checkOutBook();
-        verify(book).canBeCheckedOut();
+        verify(book).isInLibrary();
 
     }
 
@@ -144,7 +144,7 @@ public class LibraryTest {
         Book book = mock(Book.class);
         listOfBooks.add(book);
         when(bufferedReader.readLine()).thenReturn("1");
-        when(book.canBeCheckedOut()).thenReturn(false);
+        when(book.isInLibrary()).thenReturn(false);
         
         library.checkOutBook();
         verify(book, never()).checkOut();
@@ -156,10 +156,41 @@ public class LibraryTest {
         Book book = mock(Book.class);
         listOfBooks.add(book);
         when(bufferedReader.readLine()).thenReturn("1");
-        when(book.canBeCheckedOut()).thenReturn(false);
+        when(book.isInLibrary()).thenReturn(false);
 
         library.checkOutBook();
         verify(printStream).println(contains("That book is not available."));
 
     }
+
+
+    @Test
+    public void shouldRequestUserInputWhenReturningBook() throws Exception {
+        library.returnBook();
+
+        verify(bufferedReader).readLine();
+    }
+
+
+    @Test
+    public void shouldPromptUserToInputBookNumberWhenReturningBook() throws Exception {
+        library.returnBook();
+
+        verify(printStream).println(contains("Please enter the book ID:"));
+
+    }
+
+
+    @Test
+    public void shouldTryToCheckInBookWhenUserInputsBookToReturn() throws Exception {
+        Book book1 = mock(Book.class);
+        listOfBooks.add(book1);
+        when(bufferedReader.readLine()).thenReturn("1");
+        when(book1.isInLibrary()).thenReturn(false);
+        library.returnBook();
+
+        verify(book1).checkIn();
+
+    }
+
 }

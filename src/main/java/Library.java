@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -38,7 +37,7 @@ public class Library {
     public void listAllBooks() {
         for (int i = 0; i < books.size(); i++) {
             Book currentBook = books.get(i);
-            if (currentBook.canBeCheckedOut()) {
+            if (currentBook.isInLibrary()) {
                 printStream.println((i + 1) + " | " + currentBook);
             }
         }
@@ -47,6 +46,29 @@ public class Library {
     }
 
     public void checkOutBook() {
+        int bookID = getBookID();
+
+        Book currentBook = getBookFromID(bookID);
+
+        if (currentBook.isInLibrary()) {
+            currentBook.checkOut();
+            printStream.println("Thank you! Enjoy the book");
+        } else {
+            printStream.println("That book is not available.");
+        }
+
+    }
+
+    private Book getBookFromID (int bookID) {
+        Book currentBook = null;
+        if (bookID < books.size()) {
+            currentBook = books.get(bookID);
+        }
+
+        return currentBook;
+    }
+
+    private int getBookID() {
         printStream.println("Please enter the book ID:");
         String userInput = null;
         try {
@@ -61,25 +83,19 @@ public class Library {
         } catch (NumberFormatException e) {
             printStream.println("A number was not input");
         }
+        return bookID;
+    }
 
-        Book currentBook = null;
-        if (bookID >= books.size()) {
-            return;
-        }
-        currentBook = books.get(bookID);
-        if (currentBook.canBeCheckedOut()) {
-            currentBook.checkOut();
-            printStream.println("Thank you! Enjoy the book");
-        } else {
-            printStream.println("That book is not available.");
-        }
+    public void returnBook() {
+        int bookID = getBookID();
 
+        Book currentBook = getBookFromID(bookID);
+        currentBook.checkIn();
     }
 
     public void addBook(Book book1) {
         books.add(book1);
     }
-
 
 //    public void generateMenu() {
 //

@@ -20,11 +20,15 @@ public class Book {
         return String.format("%s | %s | %d", title, author, year);
     }
 
-    public boolean canBeCheckedOut() {
+    public boolean isInLibrary() {
         return isAvailable;
     }
 
     public void checkOut() {
         isAvailable = false;
+    }
+
+    public void checkIn() {
+        isAvailable = true;
     }
 }

@@ -15,6 +15,7 @@ public class BibliotecaApp {
         HashMap <String,Command> menuItems = new HashMap<>();
         menuItems.put("L", new ListBooksCommand(biblioteca,System.out));
         menuItems.put("C", new CheckoutCommand(biblioteca));
+        menuItems.put("R", new ReturnCommand(biblioteca));
         Menu menu = new Menu(System.out, menuItems);
         Console console = new Console(biblioteca, System.out, reader, menuItems, menu);
         menuItems.put("Q", new QuitCommand(console));

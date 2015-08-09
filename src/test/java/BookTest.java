@@ -32,13 +32,19 @@ public class BookTest {
 
     @Test
     public void shouldBeAvailableWhenBookNoCheckedOut() throws Exception {
-        assertTrue(book.canBeCheckedOut());
+        assertTrue(book.isInLibrary());
     }
 
     @Test
     public void shouldNotBeAvailableWhenBookCheckedOut() throws Exception {
         book.checkOut();
-        assertFalse(book.canBeCheckedOut());
+        assertFalse(book.isInLibrary());
 
+    }
+
+    @Test
+    public void shouldMarkBookAsAvailableWhenBookIsReturned()  {
+        book.checkIn();
+        assertTrue(book.isInLibrary());
     }
 }

@@ -71,6 +71,7 @@ public class Console {
 
         try {
             userInput = reader.readLine();
+            userInput = userInput.toUpperCase();
         } catch (IOException e) {
             printStream.println("Could not read user's input.");
         }
