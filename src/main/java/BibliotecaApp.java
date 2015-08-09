@@ -7,12 +7,11 @@ import java.util.List;
 public class BibliotecaApp {
 
 
-
     public static void main(String[] args) {
         List<Book> listOfBooks = new ArrayList<>();
         addBooksToList(listOfBooks);
-        Library biblioteca = new Library(listOfBooks, System.out);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Library biblioteca = new Library(listOfBooks, System.out, reader);
         HashMap <String,Command> menuItems = new HashMap<>();
         menuItems.put("1", new ListBooksCommand(biblioteca,System.out));
         Menu menu = new Menu(System.out, menuItems);

@@ -2,6 +2,8 @@
 *.class
 
 *.ipr
-
+*.iml
 *.iws
 .gradle/
+
+.DS_Store

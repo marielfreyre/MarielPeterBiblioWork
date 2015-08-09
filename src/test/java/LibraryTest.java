@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +21,14 @@ public class LibraryTest {
     private List<Book> listOfBooks;
     private Console console;
     private PrintStream printStream;
+    private BufferedReader bufferedReader;
 
     @Before
     public void setup() {
         printStream = mock(PrintStream.class);
         listOfBooks = new ArrayList<>();
-        library = new Library(listOfBooks, printStream);
+        bufferedReader = mock(BufferedReader.class);
+        library = new Library(listOfBooks, printStream, bufferedReader);
     }
 
     @Test
@@ -55,6 +58,53 @@ public class LibraryTest {
         when(bookNotAvailable.toString()).thenReturn("Book");
 
         verify(printStream, never()).println("Book");
+
+    }
+
+    @Test
+    public void shouldAddBookToListWhenBookAddedToEmptyList() throws Exception {
+        Book book1 = mock(Book.class);
+
+        library.addBook(book1);
+
+        assertThat(listOfBooks.get(0), is(book1));
+
+    }
+
+    @Test
+    public void shouldListIDNumberOfBookWhenListBooks() throws Exception {
+        Book book1 = mock(Book.class);
+        listOfBooks.add(book1);
+        when(book1.canBeCheckedOut()).thenReturn(true);
+
+        library.listAllBooks();
+
+        verify(printStream).println(contains("1 |"));
+    }
+
+    @Test
+    public void shouldRequestUserInputWhenCheckingOutBook() throws Exception {
+        library.checkOutBook();
+
+        verify(bufferedReader).readLine();
+    }
+
+    @Test
+    public void shouldPromptUserToInputBookNumberWhenCheckingOutBook() throws Exception {
+        library.checkOutBook();
+
+        verify(printStream).println("Please enter the book ID:");
+
+    }
+
+    @Test
+    public void shouldTryToCheckOutBookWhenUserInputsBookToCheckOut() throws Exception {
+        Book book1 = mock(Book.class);
+        listOfBooks.add(book1);
+        when(bufferedReader.readLine()).thenReturn("1");
+        library.checkOutBook();
+
+        verify(book1).checkOut();
 
     }
 }
