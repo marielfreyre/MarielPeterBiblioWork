@@ -93,7 +93,7 @@ public class LibraryTest {
     public void shouldPromptUserToInputBookNumberWhenCheckingOutBook() throws Exception {
         library.checkOutBook();
 
-        verify(printStream).println("Please enter the book ID:");
+        verify(printStream).println(contains("Please enter the book ID:"));
 
     }
 
@@ -105,6 +105,21 @@ public class LibraryTest {
         library.checkOutBook();
 
         verify(book1).checkOut();
+
+    }
+
+    @Test
+    public void shouldPrintMessageWhenBookHasSuccessfullyCheckedOut() throws Exception {
+        Book book = mock(Book.class);
+        listOfBooks.add(book);
+        when(bufferedReader.readLine()).thenReturn("1");
+
+        library.checkOutBook();
+
+        verify(printStream).println(contains("Thank you! Enjoy the book"));
+
+
+
 
     }
 }

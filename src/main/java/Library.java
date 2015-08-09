@@ -57,7 +57,7 @@ public class Library {
 
         int bookID = parseInt(userInput) - 1;
         books.get(bookID).checkOut();
-
+        printStream.println("Thank you! Enjoy the book");
 
     }
 
