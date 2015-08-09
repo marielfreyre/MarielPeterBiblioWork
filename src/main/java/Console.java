@@ -29,7 +29,6 @@ public class Console {
 
     public void runLibrary() {
         openLibrary();
-        //generateMenu();
 
         String userInput;
 
@@ -45,21 +44,13 @@ public class Console {
     }
 
 
-    public void quit() {
-        isConsoleClose = true;
-    }
-
     void executeUserInput(String userInput) throws QuitCommandException {
         Command command = menuItems.get(userInput);
         if (command == null) {
             printStream.println("That is an invalid selection!");
-//            isConsoleClose = false;
         } else {
             command.execute();
-//            isConsoleClose = true;
         }
-
-
     }
 
     public String getUserInput() {
@@ -75,8 +66,6 @@ public class Console {
         }
 
         return userInput;
-
-
     }
 
 }

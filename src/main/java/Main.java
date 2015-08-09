@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class BibliotecaApp {
+public class Main {
 
 
     public static void main(String[] args) {
@@ -12,7 +12,7 @@ public class BibliotecaApp {
         addBooksToList(listOfBooks);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Library biblioteca = new Library(listOfBooks, System.out, reader);
-        HashMap <String,Command> menuItems = new HashMap<>();
+        HashMap <String, Command> menuItems = new HashMap<>();
         menuItems.put("L", new ListBooksCommand(biblioteca,System.out));
         menuItems.put("C", new CheckoutCommand(biblioteca));
         menuItems.put("R", new ReturnCommand(biblioteca));

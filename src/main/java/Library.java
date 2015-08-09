@@ -17,14 +17,9 @@ public class Library {
     private BufferedReader bufferedReader;
     private List<Book> books;
 
-//    //public Library() {
-//        this(new ArrayList<Book>());
-//    }
-
     public Library(List<Book> books, PrintStream printStream, BufferedReader bufferedReader) {
         this.books = books;
         this.printStream = printStream;
-
         this.bufferedReader = bufferedReader;
     }
 
@@ -41,13 +36,10 @@ public class Library {
                 printStream.println((i + 1) + " | " + currentBook);
             }
         }
-
-
     }
 
     public void checkOutBook() {
         int bookID = getBookID();
-
         Book currentBook = getBookFromID(bookID);
 
         if (currentBook != null && currentBook.isInLibrary()) {
@@ -74,7 +66,7 @@ public class Library {
         try {
             userInput = bufferedReader.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            printStream.println("Some error occured!");
         }
 
         int bookID = 0;
@@ -88,8 +80,8 @@ public class Library {
 
     public void returnBook() {
         int bookID = getBookID();
-
         Book currentBook = getBookFromID(bookID);
+
         if (currentBook != null && !currentBook.isInLibrary()) {
             currentBook.checkIn();
             printStream.println("Thank you for returning the book.");
@@ -97,12 +89,4 @@ public class Library {
             printStream.println("That is not a valid book to return.");
         }
     }
-
-    public void addBook(Book book1) {
-        books.add(book1);
-    }
-
-//    public void generateMenu() {
-//
-//    }
 }

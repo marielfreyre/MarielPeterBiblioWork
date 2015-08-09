@@ -66,16 +66,6 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldAddBookToListWhenBookAddedToEmptyList() throws Exception {
-        Book book1 = mock(Book.class);
-
-        library.addBook(book1);
-
-        assertThat(listOfBooks.get(0), is(book1));
-
-    }
-
-    @Test
     public void shouldListIDNumberOfBookWhenListBooks() throws Exception {
         Book book1 = mock(Book.class);
         listOfBooks.add(book1);
