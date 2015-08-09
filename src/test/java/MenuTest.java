@@ -1,11 +1,11 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedReader;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 /**
@@ -13,12 +13,11 @@ import static org.mockito.Mockito.*;
  */
 public class MenuTest {
 
-
-    private Console console;
     private Menu menu;
     private PrintStream printStream;
     private Map<String, Command> menuItems;
     private Command command;
+    private BufferedReader reader;
 
     @Before
     public void setUp() throws Exception {
@@ -26,11 +25,13 @@ public class MenuTest {
         menuItems = new HashMap<>();
         command = mock(Command.class);
         menuItems.put("c", command);
+        reader = mock(BufferedReader.class);
+        menu = new Menu(printStream,menuItems, reader);
+
     }
 
     @Test
     public void shouldGenerateMenu() throws Exception {
-        menu = new Menu(printStream,menuItems);
         when(command.description()).thenReturn("Do command");
         menu.print();
         verify(printStream).println("(c) Do command");

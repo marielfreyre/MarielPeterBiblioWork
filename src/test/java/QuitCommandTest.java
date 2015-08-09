@@ -16,7 +16,7 @@ public class QuitCommandTest {
     @Before
     public void setUp() throws Exception {
         console = mock(Console.class);
-        quitCommand = new QuitCommand(console);
+        quitCommand = new QuitCommand();
     }
 
     @Test

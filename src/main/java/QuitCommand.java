@@ -3,12 +3,6 @@
  */
 public class QuitCommand implements Command {
 
-    private Console console;
-
-    public QuitCommand(Console console) {
-        this.console = console;
-    }
-
     @Override
     public void execute() throws QuitCommandException {
         throw new QuitCommandException();

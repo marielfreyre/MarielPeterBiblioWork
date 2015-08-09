@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Map;
 
 /**
  * Created by cramsden on 8/5/15.
@@ -9,16 +6,11 @@ import java.util.Map;
 public class Console {
     private Library library;
     private PrintStream printStream;
-    private BufferedReader reader;
-    private Map<String, Command> menuItems;
-    private boolean isConsoleClose = false;
-    private Menu menu;
+    Menu menu;
 
-    public Console(Library library, PrintStream printStream, BufferedReader reader, Map<String, Command> menuItems, Menu menu) {
+    public Console(Library library, PrintStream printStream, Menu menu) {
         this.library = library;
         this.printStream = printStream;
-        this.reader = reader;
-        this.menuItems = menuItems;
         this.menu = menu;
     }
 
@@ -30,42 +22,10 @@ public class Console {
     public void runLibrary() {
         openLibrary();
 
-        String userInput;
-
-        while (!isConsoleClose) {
-            menu.print();
-            userInput = getUserInput();
-            try {
-                executeUserInput(userInput);
-            } catch (QuitCommandException e) {
-                isConsoleClose = true;
-            }
+        while (menu.isRunning()) {
+            menu.run();
         }
     }
 
-
-    void executeUserInput(String userInput) throws QuitCommandException {
-        Command command = menuItems.get(userInput);
-        if (command == null) {
-            printStream.println("That is an invalid selection!");
-        } else {
-            command.execute();
-        }
-    }
-
-    public String getUserInput() {
-
-        printStream.println("Please Select an option from the Menu:");
-        String userInput = "";
-
-        try {
-            userInput = reader.readLine();
-            userInput = userInput.toUpperCase();
-        } catch (IOException e) {
-            printStream.println("Could not read user's input.");
-        }
-
-        return userInput;
-    }
 
 }
