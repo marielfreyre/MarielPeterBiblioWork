@@ -140,7 +140,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldNotCheckedOutBookWhenBookIsUnavailable() throws Exception {
+    public void shouldNotCheckOutBookWhenBookIsUnavailable() throws Exception {
         Book book = mock(Book.class);
         listOfBooks.add(book);
         when(bufferedReader.readLine()).thenReturn("1");
@@ -205,4 +205,18 @@ public class LibraryTest {
         verify(printStream).println(contains("Thank you for returning the book."));
 
     }
+
+    @Test
+    public void shouldInformUserBookNotValidToReturnWhenTryingReturn() throws Exception {
+        Book book = mock(Book.class);
+        listOfBooks.add(book);
+        when(bufferedReader.readLine()).thenReturn("1");
+        when(book.isInLibrary()).thenReturn(true);
+
+        library.returnBook();
+        verify(printStream).println(contains("That is not a valid book to return."));
+
+    }
+
+
 }

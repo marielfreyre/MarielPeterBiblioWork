@@ -51,7 +51,6 @@ public class Console {
     }
 
     void executeUserInput(String userInput) throws QuitCommandException {
-
         Command command = menuItems.get(userInput);
         if (command == null) {
             printStream.println("That is an invalid selection!");

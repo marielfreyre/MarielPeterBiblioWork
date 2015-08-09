@@ -90,9 +90,11 @@ public class Library {
         int bookID = getBookID();
 
         Book currentBook = getBookFromID(bookID);
-        if (currentBook != null) {
+        if (currentBook != null && !currentBook.isInLibrary()) {
             currentBook.checkIn();
             printStream.println("Thank you for returning the book.");
+        } else {
+            printStream.println("That is not a valid book to return.");
         }
     }
 

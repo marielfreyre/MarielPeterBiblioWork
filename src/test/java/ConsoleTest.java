@@ -38,7 +38,7 @@ public class ConsoleTest {
 
         listBooksCommand = mock(ListBooksCommand.class);
         menuItems = new HashMap<>();
-        menuItems.put("1", listBooksCommand);
+        menuItems.put("L", listBooksCommand);
 
         output = mock(PrintStream.class);
 
@@ -46,7 +46,7 @@ public class ConsoleTest {
         menu = new Menu(output, menuItems);
         console = new Console(library, output, reader, menuItems, menu);
         quitCommand = new QuitCommand(console);
-        menuItems.put("q", quitCommand);
+        menuItems.put("Q", quitCommand);
 
     }
 
@@ -64,7 +64,9 @@ public class ConsoleTest {
     public void shouldPrintMenuWhenLibraryOpens() throws IOException {
         menu = mock(Menu.class);
         console = new Console(library, output, reader, menuItems, menu);
-        when(reader.readLine()).thenReturn("q");
+        quitCommand = new QuitCommand(console);
+        menuItems.put("Q", quitCommand);
+        when(reader.readLine()).thenReturn("Q");
 
         console.runLibrary();
     /*    for (Map.Entry<String, Command> commandEntry : menuItems.entrySet()) {
