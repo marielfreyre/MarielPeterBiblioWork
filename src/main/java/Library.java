@@ -39,7 +39,7 @@ public class Library {
         for (int i = 0; i < books.size(); i++) {
             Book currentBook = books.get(i);
             if (currentBook.canBeCheckedOut()) {
-                printStream.println((i+1) +" | " + currentBook);
+                printStream.println((i + 1) + " | " + currentBook);
             }
         }
 
@@ -70,6 +70,8 @@ public class Library {
         if (currentBook.canBeCheckedOut()) {
             currentBook.checkOut();
             printStream.println("Thank you! Enjoy the book");
+        } else {
+            printStream.println("That book is not available.");
         }
 
     }
@@ -77,7 +79,6 @@ public class Library {
     public void addBook(Book book1) {
         books.add(book1);
     }
-
 
 
 //    public void generateMenu() {

@@ -145,8 +145,21 @@ public class LibraryTest {
         listOfBooks.add(book);
         when(bufferedReader.readLine()).thenReturn("1");
         when(book.canBeCheckedOut()).thenReturn(false);
+        
         library.checkOutBook();
         verify(book, never()).checkOut();
+
+    }
+
+    @Test
+    public void shouldInformUserBookNotAvailableWhenTryingCheckout() throws Exception {
+        Book book = mock(Book.class);
+        listOfBooks.add(book);
+        when(bufferedReader.readLine()).thenReturn("1");
+        when(book.canBeCheckedOut()).thenReturn(false);
+
+        library.checkOutBook();
+        verify(printStream).println(contains("That book is not available."));
 
     }
 }

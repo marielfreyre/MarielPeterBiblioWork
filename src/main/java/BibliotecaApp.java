@@ -13,10 +13,11 @@ public class BibliotecaApp {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Library biblioteca = new Library(listOfBooks, System.out, reader);
         HashMap <String,Command> menuItems = new HashMap<>();
-        menuItems.put("1", new ListBooksCommand(biblioteca,System.out));
+        menuItems.put("L", new ListBooksCommand(biblioteca,System.out));
+        menuItems.put("C", new CheckoutCommand(biblioteca));
         Menu menu = new Menu(System.out, menuItems);
         Console console = new Console(biblioteca, System.out, reader, menuItems, menu);
-        menuItems.put("q", new QuitCommand(console));
+        menuItems.put("Q", new QuitCommand(console));
         
         console.runLibrary();
     }

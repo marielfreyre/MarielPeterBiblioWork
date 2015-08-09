@@ -66,7 +66,7 @@ public class Console {
 
     public String getUserInput() {
 
-        printStream.println("Please Select a Number from the Menu:");
+        printStream.println("Please Select an option from the Menu:");
         String userInput = "";
 
         try {
