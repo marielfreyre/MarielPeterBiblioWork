@@ -40,7 +40,6 @@ public class Console {
                 executeUserInput(userInput);
             } catch (QuitCommandException e) {
                 isConsoleClose = true;
-                break;
             }
         }
     }
