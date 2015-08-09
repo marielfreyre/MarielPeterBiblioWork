@@ -19,7 +19,6 @@ import static org.mockito.Mockito.*;
 public class LibraryTest {
     private Library library;
     private List<Book> listOfBooks;
-    private Console console;
     private PrintStream printStream;
     private BufferedReader bufferedReader;
 
@@ -33,7 +32,8 @@ public class LibraryTest {
 
     @Test
     public void shouldProduceWelcomeWhenOpen() {
-        assertThat(library.open(), is("Welcome to the Library! Biblioteca is available!"));
+        library.open();
+        verify(printStream).println("Welcome to the Library! Biblioteca is available!");
     }
 
     @Test

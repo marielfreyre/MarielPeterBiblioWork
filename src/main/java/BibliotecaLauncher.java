@@ -3,19 +3,17 @@ import java.io.PrintStream;
 /**
  * Created by cramsden on 8/5/15.
  */
-public class Console {
+public class BibliotecaLauncher {
     private Library library;
-    private PrintStream printStream;
     Menu menu;
 
-    public Console(Library library, PrintStream printStream, Menu menu) {
+    public BibliotecaLauncher(Library library, PrintStream printStream, Menu menu) {
         this.library = library;
-        this.printStream = printStream;
         this.menu = menu;
     }
 
     private void openLibrary() {
-        printStream.println(library.open());
+        library.open();
     }
 
 

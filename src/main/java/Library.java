@@ -24,8 +24,8 @@ public class Library {
     }
 
 
-    public String open() {
-        return "Welcome to the Library! Biblioteca is available!";
+    public void open() {
+        printStream.println("Welcome to the Library! Biblioteca is available!");
     }
 
 

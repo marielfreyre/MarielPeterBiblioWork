@@ -4,10 +4,6 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Mockito.*;
@@ -15,10 +11,10 @@ import static org.mockito.Mockito.*;
 /**
  * Created by cramsden on 8/5/15.
  */
-public class ConsoleTest {
+public class BibliotecaLauncherTest {
     Library library;
     PrintStream printStream;
-    Console console;
+    BibliotecaLauncher bibliotecaLauncher;
     BufferedReader reader;
     private Menu menu;
 
@@ -30,25 +26,23 @@ public class ConsoleTest {
         printStream = mock(PrintStream.class);
 
         menu = mock(Menu.class);
-        console = new Console(library, printStream, menu);
+        bibliotecaLauncher = new BibliotecaLauncher(library, printStream, menu);
 
     }
 
     @Test
     public void shouldPrintWelcomeWhenLibraryOpens() throws IOException {
-        when(library.open()).thenReturn("Welcome to the Library! Biblioteca is available!");
-
-        console.runLibrary();
-        verify(printStream).println(library.open());
+        bibliotecaLauncher.runLibrary();
+        verify(library).open();
 
     }
 
     @Test
     public void shouldPrintMenuWhenLibraryOpens() throws IOException {
 
-        console.runLibrary();
+        bibliotecaLauncher.runLibrary();
 
-        verify(printStream).println(library.open());
+        verify(menu).print();
     }
 
 }

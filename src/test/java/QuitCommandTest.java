@@ -11,18 +11,15 @@ import static org.mockito.Mockito.mock;
  */
 public class QuitCommandTest {
     private QuitCommand quitCommand;
-    private Console console;
 
     @Before
     public void setUp() throws Exception {
-        console = mock(Console.class);
         quitCommand = new QuitCommand();
     }
 
     @Test
     public void shouldGiveCommandNameWhenRequested() throws Exception {
         assertThat(quitCommand.description(),is("Quit"));
-
 
     }
 
