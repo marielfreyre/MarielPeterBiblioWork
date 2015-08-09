@@ -193,4 +193,16 @@ public class LibraryTest {
 
     }
 
+    @Test
+    public void shouldThankUserForReturningBook() throws Exception {
+        Book book = mock(Book.class);
+        listOfBooks.add(book);
+        when(bufferedReader.readLine()).thenReturn("1");
+        when(book.isInLibrary()).thenReturn(false);
+
+        library.returnBook();
+
+        verify(printStream).println(contains("Thank you for returning the book."));
+
+    }
 }

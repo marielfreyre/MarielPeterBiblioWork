@@ -50,7 +50,7 @@ public class Library {
 
         Book currentBook = getBookFromID(bookID);
 
-        if (currentBook.isInLibrary()) {
+        if (currentBook != null && currentBook.isInLibrary()) {
             currentBook.checkOut();
             printStream.println("Thank you! Enjoy the book");
         } else {
@@ -90,7 +90,10 @@ public class Library {
         int bookID = getBookID();
 
         Book currentBook = getBookFromID(bookID);
-        currentBook.checkIn();
+        if (currentBook != null) {
+            currentBook.checkIn();
+            printStream.println("Thank you for returning the book.");
+        }
     }
 
     public void addBook(Book book1) {
