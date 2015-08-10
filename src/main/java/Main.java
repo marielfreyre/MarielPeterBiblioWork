@@ -15,7 +15,7 @@ public class Main {
 
         Map<String, Command> menuItems = generateMenuItems(library);
         Menu menu = new Menu(System.out, menuItems, reader);
-        BibliotecaLauncher bibliotecaLauncher = new BibliotecaLauncher(library, System.out, menu);
+        BibliotecaLauncher bibliotecaLauncher = new BibliotecaLauncher(library, menu);
 
         bibliotecaLauncher.runLibrary();
     }

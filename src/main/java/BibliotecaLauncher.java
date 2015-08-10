@@ -7,7 +7,7 @@ public class BibliotecaLauncher {
     private Library library;
     Menu menu;
 
-    public BibliotecaLauncher(Library library, PrintStream printStream, Menu menu) {
+    public BibliotecaLauncher(Library library, Menu menu) {
         this.library = library;
         this.menu = menu;
     }

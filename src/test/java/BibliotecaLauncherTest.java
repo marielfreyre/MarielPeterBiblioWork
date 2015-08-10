@@ -26,7 +26,7 @@ public class BibliotecaLauncherTest {
         printStream = mock(PrintStream.class);
 
         menu = mock(Menu.class);
-        bibliotecaLauncher = new BibliotecaLauncher(library, printStream, menu);
+        bibliotecaLauncher = new BibliotecaLauncher(library, menu);
 
     }
 
